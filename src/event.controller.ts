@@ -12,6 +12,7 @@ import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDto } from './update-event.dto';
 import { Event } from './event.entity';
 
+// Rest api with events
 @Controller('/events')
 export class EventController {
   private events: Event[] = [];
