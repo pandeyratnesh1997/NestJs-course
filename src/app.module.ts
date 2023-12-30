@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { EventModule } from './event/event.module';
 import { AppJapanService } from './app.japan.service';
 import { AppDummy } from './app.dummy';
+import { Attendee } from './event/attendee.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AppDummy } from './app.dummy';
       username: 'root',
       password: 'example',
       database: 'nest-events',
-      entities: [Event],
+      entities: [Event, Attendee],
       synchronize: true,
     }),
     EventModule,
