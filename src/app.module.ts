@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Event } from './event.entity';
+import { Event } from './event/event.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EventController } from './event.controller';
+import { EventModule } from './event/event.module';
+import { AppJapanService } from './app.japan.service';
+import { AppDummy } from './app.dummy';
 
 @Module({
   imports: [
@@ -17,9 +19,25 @@ import { EventController } from './event.controller';
       entities: [Event],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Event]),
+    EventModule,
   ],
-  controllers: [AppController, EventController],
-  providers: [AppService],
+  controllers: [AppController],
+  // providers: [AppService],
+  providers: [
+    {
+      provide: AppService,
+      useClass: AppJapanService,
+    },
+    {
+      provide: 'APP_NAME',
+      useValue: 'Nest js backend',
+    },
+    {
+      provide: 'MESSAGE',
+      inject: [AppDummy],
+      useFactory: (app) => `${app.dummy()} Factory!`,
+    },
+    AppDummy,
+  ],
 })
 export class AppModule {}
