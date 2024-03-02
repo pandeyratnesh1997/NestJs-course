@@ -6,6 +6,13 @@ import { AppService } from './app.service';
 import { EventModule } from './event/event.module';
 import { AppJapanService } from './app.japan.service';
 import { AppDummy } from './app.dummy';
+import { Attendee } from './event/attendee.entity';
+import { SchoolModule } from './school/school.module';
+import { Teacher } from './school/teacher.entity';
+import { Subject } from './school/subject.entity';
+import { AuthModule } from './event/auth/auth.module';
+import { User } from './event/auth/user.entity';
+import { Profile } from './event/auth/profile.entity';
 
 @Module({
   imports: [
@@ -16,10 +23,12 @@ import { AppDummy } from './app.dummy';
       username: 'root',
       password: 'example',
       database: 'nest-events',
-      entities: [Event],
+      entities: [Event, Attendee, Teacher, Subject, User, Profile],
       synchronize: true,
     }),
+    AuthModule,
     EventModule,
+    SchoolModule,
   ],
   controllers: [AppController],
   // providers: [AppService],
